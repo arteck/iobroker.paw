@@ -51,30 +51,6 @@ https://github.com/bondrogeen/iobroker.paw
 
 ![pic](admin/1.jpg)
 
-start and end - this is the working time of the notification via the speech synthesizer.
-               
-For example, all messages from 7h to 23h that will be sent to
-               
-Speech synthesizer (ttl), and the rest of the time will be ignored.
-               
-This rule applies only to changes in these variables 
-
-***paw.0.[name_device].tts.response*** (one device)   
-
-or 
-  
-***paw.0.all_device.tts_response*** (all device)   
-
-When sending through javascript this rule does not work.
-
-Also provided for the ttl buffer, all messages arriving at the synthesizer will be told.
-   
-That is, if you have 10-00 sending to ttl an alert (time or weather) and at this
-    
-Time comes a message (at least 10pcs), then all messages will be told.
-
-Ignore - if you do not need to receive basic information from the device.
-
 
 To control via vis, you can control the device [name_device] by changing the variable
 
@@ -205,9 +181,6 @@ sendTo("paw.0",'all',{send:'exec',text:'input tap 100 100'});
 // emulate pressing the HOME button
 sendTo("paw.0",'all',{send:'home'});
 
-// disable battery tracking, translates 0% (need root)
-sendTo("paw.0",'dev1',{send:'battery_off'});
-
 // run the application, for example - Tablet Clock indicates "system name"
 sendTo("paw.0",'all',{send:'app_start',value:'lcf.clock'});
 
@@ -232,25 +205,11 @@ sendTo("paw.0",'dev1',{
     log(JSON.stringify(response));
 });
 
-// Run the task from the Tasker application.
-// [text] = name task
-// [value] (Optional) = parameter will be passed to the variable %par1 
-// You can pass multiple values ​​separating ",,"
-// eg  value: ' test1 ,, test2 ,, test[n] ' will be transferred  %par1, %par2 %par[n]  etc.
-sendTo("paw.0",'dev2',{
-    send:  'task',
-    text:'test',
-    value:'value_test'
-},function (response){
-    log(JSON.stringify(response[0]));
-});
+// disable battery tracking, translates 0% (need root)
+sendTo("paw.0",'dev1',{send:'battery_off'});
 
-Error status:
-NotInstalled: no Tasker package could be found on the device
-NoPermission: calling app does not have the needed Android permission (see above)
-NotEnabled: Tasker is disabled by the user.
-AccessBlocked: external access is blocked in the user preferences. You can show the user the relevant preference with e.g. startActivity( TaskerIntent.getExternalAccessPrefsIntent() )
-NoReceiver: nothing is listening for TaskerIntents. Probably a Tasker bug.
+// Run the task from the Tasker application. (need root)
+sendTo("paw.0",'dev1',{send:'task',text:'auto'});
 
 // send message.
 sendTo("paw.0",'dev1',{send:  'sms', text:  'Any text', number: '8123456789'});
@@ -283,11 +242,11 @@ sendTo("paw.0",'192.168.1.71',{
 });
 
 // call to number
-sendTo("paw.0",'dev1',{send:  'dial', number: '0611'});
+sendTo("paw.0",'dev1',{send:  'call', number: '0611'});
 
 // with  callback
 sendTo("paw.0",'192.168.1.71',{
-    send:  'dial', 
+    send:  'call', 
     number: '0611'
 },function (response){
     log(JSON.stringify(response));
@@ -382,58 +341,11 @@ sendTo("paw.0",'dev1',{
     log(JSON.stringify(response[0]));
 });
 
-// get messages
-// [send] Required.
-// "now" for today
-// "all" all messages,
-// "incoming" incoming messages
-// "outgoing" outgoing messages
-// "info" only information about the number of all messages
-// [date] is not a required parameter.
-// you can get only for the specified date the request format "01-05-2017"
-// you can also just go to http: // IP: 8080 / sms.xhtml to get the list as a html page
-sendTo("paw.0",'dev1',{
-    html:'sms',
-    send:  'incoming',
-    date:'03-05-2017'
-},function (response){
-    log(JSON.stringify(response[0]));
-});
-
-// Displays messages in a separate window
-//text: "Default text",   - Message text        
-//textsize:"50",  - font size  [5 - 300] 50 (default)
-//textcolor:"000000",   -text color [HEX]  000000 (default)
-//color:"ffffff",   - background color [HEX]  ffffff (default)
-//orientation:"0",  - orientation  - 0, 90, 180, 270,   (default: current orientation)
-//font:"NORMAL"  -  font  BOLD_ITALIC, BOLD, ITALIC,   NORMAL (default)
-
-sendTo("paw.0",'dev1',{
-    send:  'informer', 
-    text: "Default text",    
-    textsize:"50",  //Optional parameter
-    textcolor:"ff0000",  //Optional parameter
-    color:"ff00ff",//Optional parameter
-    orientation:"180",//Optional parameter
-    font:"NORMAL"  //Optional parameter
-    
-},function (response){
-    log(JSON.stringify(response[0]));
-});
 
 
 ```
 
 
-
-
-### 0.0.8 (2017-05-07)
-
-* (bondrogeen) fix
-
-### 0.0.7 (2017-05-03)
-
-* (bondrogeen) Added read sms
 
 ### 0.0.6 (2017-05-01)
 

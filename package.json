@@ -1,0 +1,43 @@
+{
+  "name": "iobroker.paw",
+  "version": "0.1.7",
+  "description": "ioBroker paw Adapter",
+  "author": {
+    "name": "bondrogeen",
+    "email": "bondrogeen@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "bondrogeen",
+      "email": "bondrogeen@gmail.com"
+    }
+  ],
+  "homepage": "https://github.com/bondrogeen/iobroker.paw",
+  "license": "MIT",
+  "keywords": [
+    "ioBroker",
+    "paw",
+    "Smart Home",
+    "home automation",
+    "android",
+    "Tablet management",
+    "Tablet control"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bondrogeen/iobroker.paw"
+  },
+  "dependencies": {},
+  "main": "main.js",
+  "bugs": {
+    "url": "https://github.com/bondrogeen/iobroker.paw/issues"
+  },
+  "readmeFilename": "README.md",
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha --exit"
+  },
+  "devDependencies": {
+    "mocha": "^4.1.0",
+    "chai": "^4.1.2"
+  }
+}
